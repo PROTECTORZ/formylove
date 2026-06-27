@@ -6,6 +6,7 @@
 <title>За теб, моя любов ♡</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
+/* === ОСНОВНИ === */
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;color:#f0e6f6;overflow-x:hidden;}
 #starCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
@@ -13,12 +14,16 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
 .star-trail{position:absolute;width:120px;height:1.5px;background:linear-gradient(90deg,rgba(255,255,255,0.9),transparent);border-radius:2px;animation:shoot linear forwards;}
 @keyframes shoot{0%{opacity:1;transform:translate(0,0) rotate(-35deg);}100%{opacity:0;transform:translate(300px,200px) rotate(-35deg);}}
 .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 6rem;display:flex;flex-direction:column;align-items:center;gap:3rem;}
+
+/* === ГЕРОЙ === */
 .hero{text-align:center;padding:1rem 0 0.5rem;width:100%;}
 .hero-subtitle{font-size:0.78rem;letter-spacing:0.22em;color:#b57bee;text-transform:uppercase;margin-bottom:1rem;animation:fadeUp 1s ease both;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);line-height:1.25;color:#f8d7ea;animation:fadeUp 1.2s ease both;margin-bottom:0.8rem;}
 .hero-title em{font-style:italic;color:#e8a0c8;}
 .hero-desc{font-size:0.95rem;color:#a07ab0;line-height:1.75;animation:fadeUp 1.4s ease both;max-width:480px;margin:0 auto;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* === ТАЙМЕР === */
 .timer-wrap{width:100%;background:rgba(255,255,255,0.03);border:0.5px solid rgba(232,160,200,0.2);border-radius:20px;padding:2rem 1.5rem;text-align:center;backdrop-filter:blur(8px);}
 .t-label{font-size:0.72rem;letter-spacing:0.22em;color:#b57bee;text-transform:uppercase;margin-bottom:1.4rem;}
 .t-grid{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0.4rem,2vw,1rem);flex-wrap:wrap;}
@@ -31,10 +36,14 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
 .date-row input[type=date]{background:rgba(255,255,255,0.06);border:0.5px solid rgba(232,160,200,0.3);border-radius:8px;color:#f0e6f6;font-size:0.95rem;padding:0.5rem 1.2rem;outline:none;font-family:'Lato',sans-serif;cursor:pointer;}
 .date-row input:focus{border-color:rgba(232,160,200,0.7);}
 .date-row input::-webkit-calendar-picker-indicator{filter:invert(0.6) sepia(1) saturate(3) hue-rotate(260deg);cursor:pointer;}
+
+/* === СЕКЦИИ HEADER === */
 .sec-head{width:100%;display:flex;flex-direction:column;align-items:center;gap:0.4rem;text-align:center;}
 .sec-tag{font-size:0.7rem;letter-spacing:0.2em;color:#b57bee;text-transform:uppercase;}
 .sec-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:#f8d7ea;}
 .divider{width:55px;height:1px;background:linear-gradient(90deg,transparent,#b57bee,transparent);margin:0.3rem 0;}
+
+/* === ПРИЧИНИ === */
 .reasons-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:0.8rem;cursor:grab;width:100%;}
 .reasons-track::-webkit-scrollbar{display:none;}
 .reason-card{flex:0 0 210px;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:0.5px solid rgba(232,160,200,0.18);border-radius:18px;padding:1.4rem 1.2rem;display:flex;flex-direction:column;gap:0.7rem;transition:border-color 0.3s,transform 0.2s;position:relative;overflow:hidden;}
@@ -229,174 +238,214 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
   </div>
   <div style="width:100%;">
     <div class="pgallery-grid">
-
-      <!--
-      ════════════════════════════════════════════════════
-       КАК ДА ДОБАВИШ СНИМКИ:
-       1. Сложи снимките в СЪЩАТА папка като HTML файла
-       2. За всяка рамка — смени класа:
-            "pgframe empty"  →  "pgframe"
-       3. Изтрий коментара и замени src с името на файла
-       4. Промени надписа в pcaption
-      ════════════════════════════════════════════════════
-
-      ПРИМЕР за попълнена рамка:
       <div class="pgframe">
-        <img src="снимка1.jpg" alt="">
-        <div class="pcaption">Нашата първа снимка ♡</div>
+          <img src="images/photo2023.jpg" alt="2023">
+          <div class="pcaption">
+              <strong>2023 ❤️</strong><br>
+              Първата снимка, която пазя от теб.
+          </div>
       </div>
-      -->
-
-<div class="pgframe">
-    <img src="images/photo2023.jpg" alt="2023">
-    <div class="pcaption">
-        <strong>2023 ❤️</strong><br>
-        Първата снимка, която пазя от теб.
+      <div class="pgframe">
+          <img src="images/photo2024.jpg" alt="2024">
+          <div class="pcaption">
+              <strong>2024 ❤️</strong><br>
+              Усмивката ти стана любимата ми гледка.
+          </div>
+      </div>
+      <div class="pgframe">
+          <img src="images/photo2025.jpg" alt="2025">
+          <div class="pcaption">
+              <strong>2025 ❤️</strong><br>
+              Всяка твоя снимка ми оправя деня.
+          </div>
+      </div>
+      <div class="pgframe">
+          <img src="images/photo2026.jpg" alt="2026">
+          <div class="pcaption">
+              <strong>2026 ❤️</strong><br>
+              Благодаря ти, че си част от живота ми. ❤️
+          </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="pgframe">
-    <img src="images/photo2024.jpg" alt="2024">
-    <div class="pcaption">
-        <strong>2024 ❤️</strong><br>
-        Усмивката ти стана любимата ми гледка.
+  <!-- ПЪЗЕЛ - ВЪЗСТАНОВЕН HTML -->
+  <div class="sec-head">
+    <span class="sec-tag">🧩 малка загадка</span>
+    <span class="sec-title">Отгатни тайните ми</span>
+    <div class="divider"></div>
+  </div>
+  <div style="width: 100%;">
+    <div class="puzzle-progress" id="puzzleProg"></div>
+    <div class="puzzle-card" id="puzzleCard">
+      <span class="p-lock" id="pLock">🔒</span>
+      <div class="p-clue" id="pClue">Въпрос 1</div>
+      <div class="p-input-row" id="pInputRow">
+        <input type="text" class="p-input" id="pInput" placeholder="отговор...">
+        <button class="p-btn" onclick="checkAnswer()">провери</button>
+      </div>
+      <div class="p-reveal" id="pReveal"></div>
+      <div class="p-hint" id="pHint"></div>
+      <button class="p-edit-btn" onclick="openPuzzleEdit()">✎ редактирай въпросите</button>
     </div>
-</div>
-
-<div class="pgframe">
-    <img src="images/photo2025.jpg" alt="2025">
-    <div class="pcaption">
-        <strong>2025 ❤️</strong><br>
-        Всяка твоя снимка ми оправя деня.
+    <div class="guide-arrow" id="puzzleGuide">
+      <span class="ga-text" id="puzzleGuideText">сега следвай стрелките долу ♡</span>
+      <span class="ga-arrow">↓</span>
     </div>
-</div>
+  </div>
 
-<div class="pgframe">
-    <img src="images/photo2026.jpg" alt="2026">
-    <div class="pcaption">
-        <strong>2026 ❤️</strong><br>
-        Благодаря ти, че си част от живота ми. ❤️
+  <!-- СТЪПКИ -->
+  <div class="sec-head">
+    <span class="sec-tag">🌹 специално за теб</span>
+    <span class="sec-title">Едно малко пътешествие към сърцето ми</span>
+    <div class="divider"></div>
+  </div>
+
+  <div class="steps-wrap">
+
+    <div class="sc" id="s1">
+      <button class="st" onclick="togStep('s1',1)">
+        <div class="si">💌</div>
+        <div class="stw">
+          <span class="stt">Първото писмо</span>
+          <span class="sth">прочети го бавно ❤️</span>
+        </div>
+        <span class="schev">▾</span>
+      </button>
+
+      <div class="scont">
+        <div class="sinn">
+          <div class="msg-bubble" contenteditable="true">
+            Не знам дали думите някога ще бъдат достатъчни, за да ти покажат колко много значиш за мен. Откакто се появи в живота ми, всеки ден има повече смисъл, повече усмивки и повече щастие. Надявам се тази малка изненада да ти покаже поне частица от това, което чувствам към теб. ❤️
+          </div>
+          <div class="next-hint" id="nh1">
+            <span class="nh-arrow">↓</span>
+            <span class="nh-text">сега отвори <em>„Ти през моите очи ❤️"</em></span>
+            <span class="nh-arrow">↓</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- ВЪЗСТАНОВЕНА СТЪПКА 2 -->
+    <div class="sc" id="s2">
+      <button class="st" onclick="togStep('s2',2)">
+        <div class="si">📸</div>
+        <div class="stw">
+          <span class="stt">Ти през моите очи ❤️</span>
+          <span class="sth">Спомени за теб ❤️</span>
+        </div>
+        <span class="schev">▾</span>
+      </button>
+
+      <div class="scont">
+        <div class="sinn">
+          <div class="msg-bubble" contenteditable="true">
+            Всяка снимка, всеки момент с теб са малки частици от едно прекрасно чудо. Ти си най-красивото нещо в моя свят. ❤️
+          </div>
+          <div class="next-hint" id="nh2">
+            <span class="nh-arrow">↓</span>
+            <span class="nh-text">сега отвори <em>„Нещата, които обожавам в теб ❤️"</em> ❤️</span>
+            <span class="nh-arrow">↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc" id="s3">
+      <button class="st" onclick="togStep('s3',3)">
+        <div class="si">🌹</div>
+        <div class="stw">
+          <span class="stt">Нещата, които обожавам в теб ❤️</span>
+          <span class="sth">няма как да ги събера в няколко реда...</span>
+        </div>
+        <span class="schev">▾</span>
+      </button>
+
+      <div class="scont">
+        <div class="sinn">
+          <div class="msg-bubble" contenteditable="true">
+            Обичам усмивката ти. Обичам начина, по който ме караш да се чувствам. Обичам колко добра си, колко красива си и колко специален човек си. Най-много обаче обичам това, че си точно ти. Не бих променил нищо.
+          </div>
+          <div class="edit-hint">❤️ Изненада специално за теб ❤️!!</div>
+          <div class="next-hint" id="nh3">
+            <span class="nh-arrow">↓</span>
+            <span class="nh-text">❤️ остана само още една изненада ❤️</span>
+            <span class="nh-arrow">↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ВЪЗСТАНОВЕНА СТЪПКА 4 (БУТОНА ЗА ИЗНЕНАДА) -->
+    <div class="sc" id="s4">
+      <button class="st" onclick="togStep('s4',4)">
+        <div class="si">🎁</div>
+        <div class="stw">
+          <span class="stt">Последната изненада</span>
+          <span class="sth">натисни бутона ❤️</span>
+        </div>
+        <span class="schev">▾</span>
+      </button>
+
+      <div class="scont">
+        <div class="sinn">
+          <div class="heart-section">
+            <button class="hbtn" onclick="bigSurprise()">
+              ❤️ Натисни ме ❤️
+            </button>
+          </div>
+          <div class="next-hint" id="nh4">
+            <span class="nh-arrow">↓</span>
+            <span class="nh-text">сега отвори <em>„Последните ми думи"</em></span>
+            <span class="nh-arrow">↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc" id="s5">
+      <button class="st" onclick="togStep('s5',5)">
+        <div class="si">❤️</div>
+        <div class="stw">
+          <span class="stt">Последните ми думи</span>
+          <span class="sth">и никога няма да спрат...</span>
+        </div>
+        <span class="schev">▾</span>
+      </button>
+
+      <div class="scont">
+        <div class="sinn">
+          <div class="final-wrap">
+            <div class="final-text" contenteditable="true">
+              Благодаря ти, че си до мен.<br>
+              Благодаря ти за всяка усмивка, за всяка прегръдка и за всеки момент, който споделяме.<br><br>
+              Не знам какво ни очаква утре, но знам едно — винаги ще се радвам, че съдбата ме срещна с теб.<br><br>
+              Обичам те. Днес, утре и всеки ден след това. ❤️
+            </div>
+            <div class="final-sig" contenteditable="true">
+              — Твоето момче ❤️
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- STEPS -->
-
-<div class="sec-head">
-  <span class="sec-tag">🌹 специално за теб</span>
-  <span class="sec-title">Едно малко пътешествие към сърцето ми</span>
-  <div class="divider"></div>
+<!-- PUZZLE EDIT OVERLAY (Възстановен HTML) -->
+<div class="eov" id="puzzleEditOv">
+  <div class="ebox">
+    <h3>Редактирай въпросите</h3>
+    <div id="puzzleEditFields"></div>
+    <div class="eov-note">За да запазиш промените завинаги, трябва да ги редактираш директно в кода!</div>
+    <div class="eov-btns">
+      <button class="eov-cancel" onclick="closePuzzleEdit()">Отказ</button>
+      <button class="eov-save" onclick="savePuzzleEdit()">Запази временно</button>
+    </div>
+  </div>
 </div>
-
-<div class="steps-wrap">
-
-<div class="sc" id="s1">
-<button class="st" onclick="togStep('s1',1)">
-<div class="si">💌</div>
-<div class="stw">
-<span class="stt">Първото писмо</span>
-<span class="sth">прочети го бавно ❤️</span>
-</div>
-<span class="schev">▾</span>
-</button>
-
-<div class="scont"><div class="sinn">
-<div class="msg-bubble" contenteditable="true">
-Не знам дали думите някога ще бъдат достатъчни, за да ти покажат колко много значиш за мен. Откакто се появи в живота ми, всеки ден има повече смисъл, повече усмивки и повече щастие. Надявам се тази малка изненада да ти покаже поне частица от това, което чувствам към теб. ❤️
-</div>
-
-<div class="next-hint" id="nh1">
-<span class="nh-arrow">↓</span>
-<span class="nh-text">сега отвори <em>„Ти през моите очи ❤️"</em></span>
-<span class="nh-arrow">↓</span>
-</div>
-</div></div>
-</div>
-
-<div class="sc" id="s2">
-<button class="st" onclick="togStep('s2',2)">
-<div class="si">📸</div>
-<div class="stw">
-<span class="stt">Ти през моите очи ❤️</span>
-<span class="sth">Спомени за теб ❤️</span>
-</div>
-<span class="schev">▾</span>
-</button>
-
-<div class="next-hint" id="nh2">
-<span class="nh-arrow">↓</span>
-<span class="nh-text">сега отвори <em>„Нещата, които обожавам в теб ❤️"</em> ❤️</span>
-<span class="nh-arrow">↓</span>
-</div>
-</div>
-
-<div class="sc" id="s3">
-<button class="st" onclick="togStep('s3',3)">
-<div class="si">🌹</div>
-<div class="stw">
-<span class="stt">Нещата, които обожавам в теб ❤️</span>
-<span class="sth">няма как да ги събера в няколко реда...</span>
-</div>
-<span class="schev">▾</span>
-</button>
-
-<div class="scont"><div class="sinn">
-<div class="msg-bubble" contenteditable="true">
-Обичам усмивката ти. Обичам начина, по който ме караш да се чувствам. Обичам колко добра си, колко красива си и колко специален човек си. Най-много обаче обичам това, че си точно ти. Не бих променил нищо.
-</div>
-
-<div class="edit-hint">❤️Изненада специално за теб❤️!!</div>
-
-<div class="next-hint" id="nh3">
-<span class="nh-arrow">↓</span>
-<span class="nh-text">❤️остана само още една изненада ❤️</span>
-<span class="nh-arrow">↓</span>
-</div>
-</div></div>
-</div>
-
-<div class="sc" id="s4">
-<button class="st" onclick="togStep('s4',4)">
-<div class="si">🎁</div>
-<div class="stw">
-<span class="stt">Последната изненада</span>
-<span class="sth">натисни бутона ❤️</span>
-</div>
-<span class="schev">▾</span>
-</button>
-</div>
-
-<div class="sc" id="s5">
-<button class="st" onclick="togStep('s5',5)">
-<div class="si">❤️</div>
-<div class="stw">
-<span class="stt">Последните ми думи</span>
-<span class="sth">и никога няма да спрат...</span>
-</div>
-<span class="schev">▾</span>
-</button>
-
-<div class="scont"><div class="sinn">
-<div class="final-wrap">
-<div class="final-text" contenteditable="true">
-Благодаря ти, че си до мен.<br>
-Благодаря ти за всяка усмивка, за всяка прегръдка и за всеки момент, който споделяме.<br><br>
-
-Не знам какво ни очаква утре, но знам едно — винаги ще се радвам, че съдбата ме срещна с теб.<br><br>
-
-Обичам те. Днес, утре и всеки ден след това. ❤️
-
-</div>
-
-<div class="final-sig" contenteditable="true">
-— Твоето момче ❤️
-</div>
-
-</div>
-</div></div>
-</div>
-
-</div>
-
 
 <script>
 // STARFIELD
@@ -464,7 +513,7 @@ function addReason(){
   const track=document.getElementById('reasonsTrack');const addCard=document.getElementById('addCard');reasonCount++;
   const icons=['🌺','🦋','🌊','🎵','🌷','⭐','🍃','🌙','🎶','🕊'];
   const card=document.createElement('div');card.className='reason-card';
-  card.innerHTML=`<span class="reason-num">причина ${String(reasonCount).padStart(2,'0')}</span><span class="reason-icon">${icons[Math.floor(Math.random()*icons.length)]}</span><div class="reason-text">Напиши своята причина тук...</div>`;
+  card.innerHTML=`<span class="reason-num">причина ${String(reasonCount).padStart(2,'0')}</span><span class="reason-icon">${icons[Math.floor(Math.random()*icons.length)]}</span><div class="reason-text" contenteditable="true">Напиши своята причина тук...</div>`;
   track.insertBefore(card,addCard);updateDots();
 }
 function updateDots(){
