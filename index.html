@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>За теб, моя любов ♡</title>
+<title> За най-прекрасното момиче ♡ ♡</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 /* === ОСНОВНИ === */
@@ -642,16 +642,29 @@ function popConfetti(){
   for(let i=0;i<90;i++){setTimeout(()=>{const c=document.createElement('div');c.className='cpiece';c.style.left=(Math.random()*100)+'%';c.style.top='-10px';c.style.background=confCols[Math.floor(Math.random()*confCols.length)];const sz=5+Math.random()*8;c.style.width=sz+'px';c.style.height=sz+'px';c.style.borderRadius=Math.random()>0.5?'50%':'2px';c.style.animationDuration=(2.5+Math.random()*2.5)+'s';c.style.animationDelay=(Math.random()*0.8)+'s';w.appendChild(c);setTimeout(()=>c.remove(),6000);},i*18);}
 }
 
-// BIG SURPRISE
-function bigSurprise(){
-  burstHearts();popConfetti();spawnPetals(30);
+  function bigSurprise(){
+  burstHearts();
+  popConfetti();
+  spawnPetals(30);
   setTimeout(()=>showFlash('💖','Обичам те безкрайно много! ♡'),500);
   setTimeout(()=>{
-    const nh=document.getElementById('nh4');if(nh)nh.classList.add('show');
+    const nh=document.getElementById('nh4');
+    if(nh) nh.classList.add('show');
     const s5=document.getElementById('s5');
-    if(s5){s5.classList.add('pulse-me');setTimeout(()=>s5.scrollIntoView({behavior:'smooth',block:'nearest'}),1200);}
+    if(s5){
+      s5.classList.add('pulse-me');
+      setTimeout(()=>s5.scrollIntoView({behavior:'smooth',block:'nearest'}),1200);
+    }
   },1800);
 }
+
+// ← ДОБАВИ ТОВА ТУК
+startDate = new Date(2023, 2, 21, 18, 14);
+updateTimer();
+timerIv = setInterval(updateTimer, 1000);
+document.getElementById('startDate').style.display = 'none';
+document.querySelector('.date-row label').textContent = 'Заедно от 21.03.2023 • 18:14 ❤️';
+  
 </script>
 </body>
 </html>
