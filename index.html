@@ -204,11 +204,6 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
       <span class="t-dot">·</span>
       <div class="t-unit"><span class="t-num" id="tS">00</span><span class="t-ul">секунди</span></div>
     </div>
-    <div class="date-row">
-      <label>от кога сме заедно:</label>
-      <input type="date" id="startDate" />
-    </div>
-  </div>
 
   <div class="sec-head">
     <span class="sec-tag">♡ причините</span>
@@ -468,7 +463,8 @@ function shootStar(){const sw=document.getElementById('shootWrap');const el=docu
 setInterval(shootStar,4500);setTimeout(shootStar,1500);setTimeout(shootStar,8000);
 
 // TIMER
-let startDate=null,timerIv=null;
+let startDate = new Date(2023, 2, 21, 18, 14, 0);
+let timerIv = null;
 const pad=n=>String(n).padStart(2,'0');
 function updateTimer(){
   if(!startDate)return;
@@ -480,7 +476,9 @@ function updateTimer(){
   document.getElementById('tY').textContent=y;document.getElementById('tM').textContent=m;document.getElementById('tD').textContent=d;
   document.getElementById('tH').textContent=pad(hrs);document.getElementById('tMin').textContent=pad(min);document.getElementById('tS').textContent=pad(sec);
 }
-document.getElementById('startDate').addEventListener('change',function(){startDate=new Date(this.value);if(timerIv)clearInterval(timerIv);updateTimer();timerIv=setInterval(updateTimer,1000);});
+
+updateTimer();
+timerIv = setInterval(updateTimer, 1000);
 
 // STEPS — романтично водене
 function togStep(id, stepNum){
@@ -529,24 +527,29 @@ document.getElementById('reasonsTrack').addEventListener('scroll',function(){
 });
 updateDots();
 
-{
-  clue:'1. Кога започна нашата история? ❤️',
-  answer:'21.03.2023', // напр. 14.02.2024
-  hint:'Това е денят, в който станахме заедно. (дд.мм.гггг)',
-  reveal:'Точно така! ❤️ Това беше денят, в който започна най-хубавата част от живота ми.'
-},
-{
-  clue:'2. Каква ще стане фамилията ти, когато ми я приемеш? 💍',
-  answer:'Алиева', // твоята фамилия с малки букви
-  hint:'Подсказка: същата като моята. ❤️',
-  reveal:'Нямам търпение един ден този отговор да стане реалност. ❤️'
-},
-{
-  clue:'3. Какъв ми е любимият цвят? 🎨',
-  answer:'Червен', // напр. черен
-  hint:'Подсказка: това е цветът, който нося най-често.',
-  reveal:'Позна! ❤️ Винаги обръщаш внимание дори на малките неща за мен.'
-}
+  const puzzles = [
+  {
+    clue:'1. Кога започна нашата история? ❤️',
+    answer:'21.03.2023',
+    hint:'Това е денят, в който станахме заедно. (дд.мм.гггг)',
+    reveal:'Точно така! ❤️ Това беше денят, в който започна най-хубавата част от живота ми.'
+  },
+  {
+    clue:'2. Каква ще стане фамилията ти, когато ми я приемеш? 💍',
+    answer:'Алиева',
+    hint:'Подсказка: същата като моята. ❤️',
+    reveal:'Нямам търпение един ден този отговор да стане реалност. ❤️'
+  },
+  {
+    clue:'3. Какъв ми е любимият цвят? 🎨',
+    answer:'Червен',
+    hint:'Подсказка: това е цветът, който нося най-често.',
+    reveal:'Позна! ❤️ Винаги обръщаш внимание дори на малките неща за мен.'
+  }
+];
+
+let currentPuzzle = 0;
+let wrongCount = 0;
   
 function renderPuzzle(){
   const prog=document.getElementById('puzzleProg');prog.innerHTML='';
