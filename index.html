@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>За теб, моя любов ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;color:#f0e6f6;overflow-x:hidden;}
+#starCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.shoot{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden;}
+.star-trail{position:absolute;width:120px;height:1.5px;background:linear-gradient(90deg,rgba(255,255,255,0.9),transparent);border-radius:2px;animation:shoot linear forwards;}
+@keyframes shoot{0%{opacity:1;transform:translate(0,0) rotate(-35deg);}100%{opacity:0;transform:translate(300px,200px) rotate(-35deg);}}
+.wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 6rem;display:flex;flex-direction:column;align-items:center;gap:3rem;}
+.hero{text-align:center;padding:1rem 0 0.5rem;width:100%;}
+.hero-subtitle{font-size:0.78rem;letter-spacing:0.22em;color:#b57bee;text-transform:uppercase;margin-bottom:1rem;animation:fadeUp 1s ease both;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);line-height:1.25;color:#f8d7ea;animation:fadeUp 1.2s ease both;margin-bottom:0.8rem;}
+.hero-title em{font-style:italic;color:#e8a0c8;}
+.hero-desc{font-size:0.95rem;color:#a07ab0;line-height:1.75;animation:fadeUp 1.4s ease both;max-width:480px;margin:0 auto;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.timer-wrap{width:100%;background:rgba(255,255,255,0.03);border:0.5px solid rgba(232,160,200,0.2);border-radius:20px;padding:2rem 1.5rem;text-align:center;backdrop-filter:blur(8px);}
+.t-label{font-size:0.72rem;letter-spacing:0.22em;color:#b57bee;text-transform:uppercase;margin-bottom:1.4rem;}
+.t-grid{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0.4rem,2vw,1rem);flex-wrap:wrap;}
+.t-unit{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.t-num{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);color:#f8d7ea;line-height:1;min-width:2.6rem;text-align:center;transition:color 0.3s;}
+.t-ul{font-size:0.58rem;letter-spacing:0.12em;color:#7a5090;text-transform:uppercase;}
+.t-dot{font-size:1.4rem;color:#3d2055;padding-bottom:12px;}
+.date-row{margin-top:1.4rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+.date-row label{font-size:0.78rem;color:#a07ab0;letter-spacing:0.07em;}
+.date-row input[type=date]{background:rgba(255,255,255,0.06);border:0.5px solid rgba(232,160,200,0.3);border-radius:8px;color:#f0e6f6;font-size:0.95rem;padding:0.5rem 1.2rem;outline:none;font-family:'Lato',sans-serif;cursor:pointer;}
+.date-row input:focus{border-color:rgba(232,160,200,0.7);}
+.date-row input::-webkit-calendar-picker-indicator{filter:invert(0.6) sepia(1) saturate(3) hue-rotate(260deg);cursor:pointer;}
+.sec-head{width:100%;display:flex;flex-direction:column;align-items:center;gap:0.4rem;text-align:center;}
+.sec-tag{font-size:0.7rem;letter-spacing:0.2em;color:#b57bee;text-transform:uppercase;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:#f8d7ea;}
+.divider{width:55px;height:1px;background:linear-gradient(90deg,transparent,#b57bee,transparent);margin:0.3rem 0;}
+.reasons-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:0.8rem;cursor:grab;width:100%;}
+.reasons-track::-webkit-scrollbar{display:none;}
+.reason-card{flex:0 0 210px;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:0.5px solid rgba(232,160,200,0.18);border-radius:18px;padding:1.4rem 1.2rem;display:flex;flex-direction:column;gap:0.7rem;transition:border-color 0.3s,transform 0.2s;position:relative;overflow:hidden;}
+.reason-card::before{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:rgba(181,123,238,0.06);}
+.reason-card:hover{border-color:rgba(232,160,200,0.5);transform:translateY(-3px);}
+.reason-num{font-size:0.68rem;letter-spacing:0.14em;color:#7a5090;text-transform:uppercase;}
+.reason-icon{font-size:1.7rem;}
+.reason-text{font-family:'Playfair Display',serif;font-style:italic;font-size:0.93rem;color:#f0d8f0;line-height:1.6;min-height:60px;}
+.reasons-nav{display:flex;justify-content:center;gap:0.5rem;margin-top:0.5rem;}
+.r-dot{width:6px;height:6px;border-radius:50%;background:#3d2055;cursor:pointer;transition:background 0.3s;}
+.r-dot.active{background:#b57bee;}
+.add-reason-btn{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;border:0.5px dashed rgba(232,160,200,0.3);border-radius:10px;color:#a07ab0;font-size:0.8rem;padding:0.5rem 1.1rem;cursor:pointer;margin-top:0.5rem;transition:all 0.3s;font-family:'Lato',sans-serif;}
+.add-reason-btn:hover{border-color:rgba(232,160,200,0.6);color:#f8d7ea;background:rgba(255,255,255,0.04);}
+
+/* === PHOTO FRAMES === */
+.pgallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;width:100%;}
+.pgframe{position:relative;border-radius:20px;overflow:hidden;border:0.5px solid rgba(232,160,200,0.25);background:rgba(255,255,255,0.03);aspect-ratio:4/5;transition:transform 0.4s,border-color 0.4s,box-shadow 0.4s;}
+.pgframe:hover{transform:scale(1.03);border-color:rgba(232,160,200,0.6);box-shadow:0 8px 40px rgba(181,123,238,0.18);}
+.pgframe img{width:100%;height:100%;object-fit:cover;display:block;}
+.pgframe .pcaption{position:absolute;bottom:0;left:0;right:0;padding:0.8rem 1rem 0.9rem;background:linear-gradient(0deg,rgba(8,5,20,0.85) 0%,transparent 100%);font-family:'Playfair Display',serif;font-style:italic;font-size:0.85rem;color:#f8d7ea;line-height:1.5;text-align:center;}
+.pgframe.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;}
+.pgframe.empty .efi{font-size:2.2rem;opacity:0.35;}
+.pgframe.empty .efl{font-size:0.7rem;color:#5a3870;letter-spacing:0.06em;}
+
+/* === PUZZLE === */
+.puzzle-progress{display:flex;gap:10px;justify-content:center;margin-bottom:1.4rem;}
+.p-dot{width:11px;height:11px;border-radius:50%;background:#1a0d2e;border:0.5px solid #3d2055;transition:all 0.5s;}
+.p-dot.done{background:#b57bee;border-color:#b57bee;box-shadow:0 0 10px rgba(181,123,238,0.5);}
+.puzzle-card{background:rgba(255,255,255,0.04);border:0.5px solid rgba(232,160,200,0.18);border-radius:22px;padding:2rem 1.8rem;text-align:center;transition:border-color 0.5s;width:100%;}
+.puzzle-card.solved{border-color:rgba(232,160,200,0.45);}
+.p-lock{font-size:2.8rem;margin-bottom:1rem;display:block;transition:transform 0.5s;}
+.puzzle-card.solved .p-lock{transform:rotate(10deg) scale(1.25);}
+.p-clue{font-family:'Playfair Display',serif;font-style:italic;font-size:1.08rem;color:#e8c8f0;line-height:1.7;margin-bottom:1.4rem;}
+.p-input-row{display:flex;gap:0.7rem;justify-content:center;flex-wrap:wrap;}
+.p-input{background:rgba(255,255,255,0.07);border:0.5px solid rgba(232,160,200,0.3);border-radius:10px;color:#f0e6f6;font-size:1rem;padding:0.55rem 1.1rem;outline:none;font-family:'Playfair Display',serif;font-style:italic;text-align:center;width:200px;}
+.p-input:focus{border-color:rgba(232,160,200,0.7);}
+.p-input.wrong{border-color:rgba(212,96,122,0.7);color:#d4607a;animation:shake 0.4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+.p-btn{background:rgba(232,160,200,0.12);border:0.5px solid rgba(232,160,200,0.4);border-radius:10px;color:#f8d7ea;font-size:0.95rem;padding:0.55rem 1.4rem;cursor:pointer;font-family:'Lato',sans-serif;transition:all 0.3s;}
+.p-btn:hover{background:rgba(232,160,200,0.24);}
+.p-reveal{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#f8d7ea;line-height:1.7;padding:1rem 1.2rem;background:rgba(232,160,200,0.07);border-radius:14px;display:none;margin-top:1rem;animation:fadeUp 0.6s ease both;}
+.p-hint{font-size:0.78rem;color:#9a6090;margin-top:0.6rem;display:none;font-style:italic;}
+.p-hint::before{content:'✦ подсказка: ';}
+.p-edit-btn{display:inline-flex;align-items:center;gap:0.4rem;background:transparent;border:0.5px dashed rgba(232,160,200,0.25);border-radius:8px;color:#7a5090;font-size:0.75rem;padding:0.35rem 0.9rem;cursor:pointer;margin-top:1rem;font-family:'Lato',sans-serif;transition:all 0.3s;}
+.p-edit-btn:hover{color:#b57bee;border-color:rgba(181,123,238,0.5);}
+
+/* === GUIDE ARROWS === */
+.guide-arrow{display:none;align-items:center;gap:0.7rem;justify-content:center;padding:0.9rem 1.4rem;background:rgba(232,160,200,0.07);border:0.5px solid rgba(232,160,200,0.35);border-radius:16px;margin-top:0.8rem;}
+.guide-arrow.show{display:flex;animation:guideGlow 1.8s ease-in-out infinite;}
+.ga-text{font-family:'Playfair Display',serif;font-style:italic;font-size:0.92rem;color:#f0d0e8;line-height:1.5;}
+.ga-arrow{font-size:1.4rem;animation:bounceDown 1.2s ease-in-out infinite;}
+@keyframes guideGlow{0%,100%{border-color:rgba(232,160,200,0.25);box-shadow:0 0 0 rgba(181,123,238,0);}50%{border-color:rgba(232,160,200,0.65);box-shadow:0 0 20px rgba(181,123,238,0.22);}}
+@keyframes bounceDown{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+.next-hint{display:none;align-items:center;gap:0.6rem;justify-content:center;margin-top:1.2rem;padding:0.7rem 1.2rem;background:rgba(181,123,238,0.08);border:0.5px solid rgba(181,123,238,0.3);border-radius:12px;}
+.next-hint.show{display:flex;animation:guideGlow 2s ease-in-out infinite;}
+.nh-text{font-family:'Playfair Display',serif;font-style:italic;font-size:0.88rem;color:#e0c0f8;}
+.nh-arrow{font-size:1.1rem;animation:bounceDown 1.4s ease-in-out infinite;}
+
+/* === STEPS === */
+.steps-wrap{width:100%;display:flex;flex-direction:column;gap:1rem;}
+.sc{background:rgba(255,255,255,0.03);border:0.5px solid rgba(232,160,200,0.13);border-radius:20px;overflow:hidden;transition:border-color 0.4s,box-shadow 0.4s;}
+.sc.open{border-color:rgba(232,160,200,0.38);}
+.sc.pulse-me{animation:cardPulse 1s ease-in-out 3;}
+.sc.pulse-me .si{animation:siPulse 1s ease-in-out 3;}
+@keyframes cardPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,160,200,0);}50%{box-shadow:0 0 0 3px rgba(232,160,200,0.35),0 0 28px rgba(181,123,238,0.18);}}
+@keyframes siPulse{0%,100%{box-shadow:0 0 0 rgba(232,160,200,0);}50%{box-shadow:0 0 20px rgba(232,160,200,0.6);}}
+.st{width:100%;padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1rem;background:transparent;border:none;cursor:pointer;color:#f0e6f6;text-align:left;}
+.st:hover{background:rgba(255,255,255,0.02);}
+.si{width:48px;height:48px;border-radius:50%;background:rgba(232,160,200,0.08);border:0.5px solid rgba(232,160,200,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;transition:all 0.3s;}
+.sc.open .si{background:rgba(232,160,200,0.18);transform:scale(1.08);}
+.stw{flex:1;}
+.stt{font-family:'Playfair Display',serif;font-size:1.05rem;color:#f8d7ea;display:block;}
+.sth{font-size:0.75rem;color:#7a5090;display:block;margin-top:3px;}
+.schev{font-size:0.9rem;color:#7a5090;transition:transform 0.35s;}
+.sc.open .schev{transform:rotate(180deg);}
+.scont{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.4,0,0.2,1),opacity 0.4s;opacity:0;}
+.sc.open .scont{max-height:2000px;opacity:1;}
+.sinn{padding:0 1.4rem 1.6rem;}
+.msg-bubble{background:rgba(232,160,200,0.07);border-left:2px solid #b57bee;border-radius:0 14px 14px 0;padding:1.1rem 1.3rem;font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#f0e6f6;line-height:1.8;cursor:text;outline:none;}
+.edit-hint{font-size:0.68rem;color:#5a3870;margin-top:0.5rem;font-style:italic;}
+.heart-section{text-align:center;padding:0.8rem 0;}
+.hbtn{background:rgba(232,160,200,0.1);border:0.5px solid rgba(232,160,200,0.4);border-radius:50px;color:#f8d7ea;font-family:'Playfair Display',serif;font-size:1.05rem;padding:0.9rem 2.5rem;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.7rem;}
+.hbtn:hover{background:rgba(232,160,200,0.22);transform:scale(1.05);}
+
+/* === EFFECTS === */
+.fhearts-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.fh{position:absolute;bottom:0;animation:hfloat ease-out forwards;}
+@keyframes hfloat{0%{transform:translateY(0) scale(0.5) rotate(-8deg);opacity:1;}50%{opacity:0.85;}100%{transform:translateY(-110vh) scale(1.3) rotate(12deg);opacity:0;}}
+.petals-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:998;}
+.petal{position:absolute;top:-20px;animation:petalFall linear forwards;}
+@keyframes petalFall{0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0.9;}100%{transform:translateY(110vh) rotate(540deg) scale(1.1);opacity:0;}}
+.conf{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:997;}
+.cpiece{position:absolute;animation:confFall linear forwards;}
+@keyframes confFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+/* === FLASH === */
+.flash-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:1100;background:rgba(8,5,20,0.97);border:0.5px solid rgba(232,160,200,0.5);border-radius:24px;padding:2rem 2.8rem;text-align:center;pointer-events:none;transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;opacity:0;max-width:340px;width:90%;backdrop-filter:blur(14px);}
+.flash-msg.show{transform:translate(-50%,-50%) scale(1);opacity:1;}
+.flash-icon{font-size:2.4rem;display:block;margin-bottom:0.7rem;}
+.flash-text{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#f8d7ea;line-height:1.7;}
+
+/* === FINAL === */
+.final-wrap{text-align:center;padding:0.8rem 0.5rem;}
+.final-text{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:#f8d7ea;line-height:1.9;margin-bottom:1rem;cursor:text;outline:none;}
+.final-sig{font-size:0.9rem;color:#7a5090;letter-spacing:0.14em;cursor:text;outline:none;}
+
+/* === PUZZLE EDIT === */
+.eov{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;display:none;align-items:center;justify-content:center;padding:1.5rem;overflow-y:auto;}
+.eov.on{display:flex;}
+.ebox{background:#0e0720;border:0.5px solid rgba(232,160,200,0.3);border-radius:22px;padding:2rem;width:100%;max-width:560px;display:flex;flex-direction:column;gap:1.2rem;max-height:90vh;overflow-y:auto;}
+.ebox h3{font-family:'Playfair Display',serif;color:#f8d7ea;font-size:1.2rem;text-align:center;}
+.puzzle-edit-item{border:0.5px solid rgba(232,160,200,0.15);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;gap:0.7rem;}
+.pei-num{font-size:0.7rem;letter-spacing:0.15em;color:#b57bee;text-transform:uppercase;}
+.pei-label{font-size:0.75rem;color:#a07ab0;}
+.pei-input,.pei-textarea{background:rgba(255,255,255,0.06);border:0.5px solid rgba(232,160,200,0.25);border-radius:8px;color:#f0e6f6;font-family:'Lato',sans-serif;font-size:0.88rem;padding:0.6rem 0.9rem;outline:none;transition:border-color 0.3s;width:100%;}
+.pei-input:focus,.pei-textarea:focus{border-color:rgba(232,160,200,0.6);}
+.pei-textarea{resize:vertical;min-height:70px;line-height:1.55;}
+.eov-note{font-size:0.7rem;color:#5a3870;text-align:center;}
+.eov-btns{display:flex;gap:0.8rem;justify-content:flex-end;}
+.eov-cancel{background:transparent;border:0.5px solid rgba(232,160,200,0.2);border-radius:8px;color:#7a5090;padding:0.55rem 1.2rem;cursor:pointer;font-family:'Lato',sans-serif;font-size:0.85rem;transition:all 0.3s;}
+.eov-cancel:hover{border-color:rgba(232,160,200,0.4);color:#a07ab0;}
+.eov-save{background:rgba(232,160,200,0.14);border:0.5px solid rgba(232,160,200,0.45);border-radius:8px;color:#f8d7ea;padding:0.55rem 1.2rem;cursor:pointer;font-family:'Lato',sans-serif;font-size:0.85rem;transition:all 0.3s;}
+.eov-save:hover{background:rgba(232,160,200,0.26);}
+@media(max-width:500px){.t-grid{gap:0.4rem;}.t-num{font-size:1.5rem;min-width:2rem;}.t-dot{font-size:1rem;}}
+</style>
+</head>
+<body>
+<canvas id="starCanvas"></canvas>
+<div class="shoot" id="shootWrap"></div>
+<div class="fhearts-wrap" id="fhWrap"></div>
+<div class="petals-wrap" id="petalsWrap"></div>
+<div class="conf" id="confWrap"></div>
+<div class="flash-msg" id="flashMsg">
+  <span class="flash-icon" id="flashIcon">💖</span>
+  <div class="flash-text" id="flashText"></div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-subtitle">✦ само за теб ✦</div>
+    <div class="hero-title">За теб,<br><em>моя любов</em> ♡</div>
+    <div class="hero-desc">Отвори бавно — всяко сърце крие нещо специално.<br>Следвай пътеките и ще намериш всичко.</div>
+  </div>
+
+  <div class="timer-wrap">
+    <div class="t-label">заедно вече</div>
+    <div class="t-grid">
+      <div class="t-unit"><span class="t-num" id="tY">0</span><span class="t-ul">години</span></div>
+      <span class="t-dot">·</span>
+      <div class="t-unit"><span class="t-num" id="tM">0</span><span class="t-ul">месеца</span></div>
+      <span class="t-dot">·</span>
+      <div class="t-unit"><span class="t-num" id="tD">0</span><span class="t-ul">дни</span></div>
+      <span class="t-dot">·</span>
+      <div class="t-unit"><span class="t-num" id="tH">00</span><span class="t-ul">часа</span></div>
+      <span class="t-dot">·</span>
+      <div class="t-unit"><span class="t-num" id="tMin">00</span><span class="t-ul">минути</span></div>
+      <span class="t-dot">·</span>
+      <div class="t-unit"><span class="t-num" id="tS">00</span><span class="t-ul">секунди</span></div>
+    </div>
+    <div class="date-row">
+      <label>от кога сме заедно:</label>
+      <input type="date" id="startDate" />
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <span class="sec-tag">♡ причините</span>
+    <span class="sec-title">Защо те обичам</span>
+    <div class="divider"></div>
+  </div>
+  <div style="width:100%;">
+    <div class="reasons-track" id="reasonsTrack">
+      <div class="reason-card"><span class="reason-num">причина 01</span><span class="reason-icon">🌙</span><div class="reason-text">Обичам как светят очите ти, когато се смееш истински.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 02</span><span class="reason-icon">🌿</span><div class="reason-text">Обичам как ме разбираш без да казвам нито дума.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 03</span><span class="reason-icon">✨</span><div class="reason-text">Обичам как правиш обикновените моменти — магически.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 04</span><span class="reason-icon">🌸</span><div class="reason-text">Обичам всичките ти малки навици, дори тези, дето ме карат да се смея.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 05</span><span class="reason-icon">💫</span><div class="reason-text">Обичам как се чувствам у дома, когато съм до теб.</div></div>
+      <div class="reason-card" id="addCard" style="justify-content:center;align-items:center;border-style:dashed;cursor:default;">
+        <button class="add-reason-btn" onclick="addReason()">+ добави причина</button>
+      </div>
+    </div>
+    <div class="reasons-nav" id="reasonsDots"></div>
+    <div style="font-size:0.7rem;color:#5a3870;text-align:center;margin-top:0.4rem;">← прекарай за повече</div>
+  </div>
+
+  <!-- СНИМКИ — ГЛАВНА ГАЛЕРИЯ -->
+  <div class="sec-head">
+    <span class="sec-tag">📸 нашите моменти</span>
+    <span class="sec-title">Снимките, които пазя</span>
+    <div class="divider"></div>
+  </div>
+  <div style="width:100%;">
+    <div class="pgallery-grid">
+
+      <!--
+      ════════════════════════════════════════════════════
+       КАК ДА ДОБАВИШ СНИМКИ:
+       1. Сложи снимките в СЪЩАТА папка като HTML файла
+       2. За всяка рамка — смени класа:
+            "pgframe empty"  →  "pgframe"
+       3. Изтрий коментара и замени src с името на файла
+       4. Промени надписа в pcaption
+      ════════════════════════════════════════════════════
+
+      ПРИМЕР за попълнена рамка:
+      <div class="pgframe">
+        <img src="снимка1.jpg" alt="">
+        <div class="pcaption">Нашата първа снимка ♡</div>
+      </div>
+      -->
+
+      <div class="pgframe empty">
+        <span class="efi">🌸</span><span class="efl">снимка 1</span>
+        <!-- <img src="снимка1.jpg" alt=""><div class="pcaption">Нашата първа снимка ♡</div> -->
+      </div>
+
+      <div class="pgframe empty">
+        <span class="efi">✨</span><span class="efl">снимка 2</span>
+        <!-- <img src="снимка2.jpg" alt=""><div class="pcaption">Един перфектен момент ♡</div> -->
+      </div>
+
+      <div class="pgframe empty">
+        <span class="efi">💫</span><span class="efl">снимка 3</span>
+        <!-- <img src="снимка3.jpg" alt=""><div class="pcaption">Завинаги в сърцето ми ♡</div> -->
+      </div>
+
+    </div>
+    <div style="font-size:0.72rem;color:#5a3870;text-align:center;margin-top:0.7rem;font-style:italic;">
+      ♡ виж коментарите в HTML за как да добавиш снимките ♡
+    </div>
+  </div>
+
+  <!-- PUZZLE -->
+  <div class="sec-head">
+    <span class="sec-tag">🔐 тайна игра</span>
+    <span class="sec-title">Намери скритите послания</span>
+    <div class="divider"></div>
+  </div>
+  <div style="width:100%;">
+    <div class="puzzle-progress" id="puzzleProg"></div>
+    <div class="puzzle-card" id="puzzleCard">
+      <span class="p-lock" id="pLock">🔒</span>
+      <div class="p-clue" id="pClue">Зареждане...</div>
+      <div class="p-input-row" id="pInputRow">
+        <input class="p-input" id="pInput" placeholder="твоят отговор..." onkeydown="if(event.key==='Enter')checkAnswer()"/>
+        <button class="p-btn" onclick="checkAnswer()">→</button>
+      </div>
+      <div class="p-hint" id="pHint"></div>
+      <div class="p-reveal" id="pReveal"></div>
+    </div>
+    <div class="guide-arrow" id="puzzleGuide">
+      <span class="ga-arrow">↓</span>
+      <div class="ga-text" id="puzzleGuideText">сега отвори следващото ♡</div>
+      <span class="ga-arrow">↓</span>
+    </div>
+    <div style="text-align:center;margin-top:0.8rem;">
+      <button class="p-edit-btn" onclick="openPuzzleEdit()">✏ наглась въпросите</button>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="sec-head">
+    <span class="sec-tag">🌹 нашата история</span>
+    <span class="sec-title">Отвори с любов</span>
+    <div class="divider"></div>
+  </div>
+  <div class="steps-wrap">
+
+    <div class="sc" id="s1">
+      <button class="st" onclick="togStep('s1',1)">
+        <div class="si">🌹</div>
+        <div class="stw"><span class="stt">Първото послание</span><span class="sth">от самото сърце...</span></div>
+        <span class="schev">▾</span>
+      </button>
+      <div class="scont"><div class="sinn">
+        <div class="msg-bubble" contenteditable="true">От момента, в който те срещнах, светът ми се промени завинаги. Всеки ден с теб е подарък, за който съм безкрайно благодарен/а.</div>
+        <div class="edit-hint">✎ натисни текста за да го редактираш</div>
+        <div class="next-hint" id="nh1">
+          <span class="nh-arrow">↓</span>
+          <span class="nh-text">сега отвори <em>„Нашите снимки"</em> ♡</span>
+          <span class="nh-arrow">↓</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sc" id="s2">
+      <button class="st" onclick="togStep('s2',2)">
+        <div class="si">📸</div>
+        <div class="stw"><span class="stt">Нашите снимки</span><span class="sth">моменти, запечатани завинаги</span></div>
+        <span class="schev">▾</span>
+      </button>
+      <div class="scont"><div class="sinn">
+        <div class="pgallery-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));">
+
+          <div class="pgframe empty" style="aspect-ratio:4/5;">
+            <span class="efi">🌸</span><span class="efl">наш момент</span>
+            <!-- <img src="снимка1.jpg" alt=""><div class="pcaption">Нашата първа снимка ♡</div> -->
+          </div>
+
+          <div class="pgframe empty" style="aspect-ratio:4/5;">
+            <span class="efi">✨</span><span class="efl">наш момент</span>
+            <!-- <img src="снимка2.jpg" alt=""><div class="pcaption">Перфектен момент ♡</div> -->
+          </div>
+
+          <div class="pgframe empty" style="aspect-ratio:4/5;">
+            <span class="efi">💫</span><span class="efl">наш момент</span>
+            <!-- <img src="снимка3.jpg" alt=""><div class="pcaption">Завинаги в сърцето ♡</div> -->
+          </div>
+
+        </div>
+        <div class="next-hint" id="nh2">
+          <span class="nh-arrow">↓</span>
+          <span class="nh-text">сега отвори <em>„Нещата, които обичам в теб"</em> ♡</span>
+          <span class="nh-arrow">↓</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sc" id="s3">
+      <button class="st" onclick="togStep('s3',3)">
+        <div class="si">💌</div>
+        <div class="stw"><span class="stt">Нещата, които обичам в теб</span><span class="sth">само за теб...</span></div>
+        <span class="schev">▾</span>
+      </button>
+      <div class="scont"><div class="sinn">
+        <div class="msg-bubble" contenteditable="true">Обичам как се смееш, обичам как ме гледаш, обичам малките неща, които правиш без да знаеш колко много значат за мен. Обичам теб — такъв/такава, какъвто/каквато си.</div>
+        <div class="edit-hint">✎ натисни текста за да го редактираш</div>
+        <div class="next-hint" id="nh3">
+          <span class="nh-arrow">↓</span>
+          <span class="nh-text">сега отвори <em>„Изненада"</em> — готви се ♡</span>
+          <span class="nh-arrow">↓</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sc" id="s4">
+      <button class="st" onclick="togStep('s4',4)">
+        <div class="si">💝</div>
+        <div class="stw"><span class="stt">Изненада!</span><span class="sth">натисни бутона вътре ♡</span></div>
+        <span class="schev">▾</span>
+      </button>
+      <div class="scont"><div class="sinn">
+        <div class="heart-section">
+          <button class="hbtn" onclick="bigSurprise()">♡ &nbsp;Натисни ме&nbsp; ♡</button>
+        </div>
+        <div class="next-hint" id="nh4">
+          <span class="nh-arrow">↓</span>
+          <span class="nh-text">последното послание те чака ♡</span>
+          <span class="nh-arrow">↓</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="sc" id="s5">
+      <button class="st" onclick="togStep('s5',5)">
+        <div class="si">🌙</div>
+        <div class="stw"><span class="stt">Финалното послание</span><span class="sth">за края на тази изненада...</span></div>
+        <span class="schev">▾</span>
+      </button>
+      <div class="scont"><div class="sinn">
+        <div class="final-wrap">
+          <div class="final-text" contenteditable="true">Обичам те повече, отколкото думите могат да изразят.<br>Благодарен/а съм за всеки момент с теб.<br>Ти си домът ми. ♡</div>
+          <div class="final-sig" contenteditable="true">— завинаги твой/а</div>
+        </div>
+        <div class="edit-hint" style="text-align:center;">✎ натисни текста за да го редактираш</div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PUZZLE EDIT OVERLAY -->
+<div class="eov" id="puzzleEditOv">
+  <div class="ebox">
+    <h3>🔐 Наглась въпросите</h3>
+    <div id="puzzleEditFields"></div>
+    <div class="eov-note">Отговорите не са case-sensitive.<br>Остави "Верен отговор" празно — ще приема всякакъв отговор.</div>
+    <div class="eov-btns">
+      <button class="eov-cancel" onclick="closePuzzleEdit()">Отказ</button>
+      <button class="eov-save" onclick="savePuzzleEdit()">Запази ♡</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// STARFIELD
+const canvas=document.getElementById('starCanvas');
+const ctx=canvas.getContext('2d');
+let stars=[];
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;initStars();}
+function initStars(){
+  stars=[];
+  const cols=['#ffffff','#f8d7ea','#e8c0f0','#c8b0ff','#a0d0ff','#ffd6e8'];
+  for(let i=0;i<240;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.2,a:Math.random(),da:(Math.random()-0.5)*0.007,color:cols[Math.floor(Math.random()*cols.length)]});}
+}
+function drawStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{s.a+=s.da;if(s.a>1||s.a<0.08)s.da*=-1;ctx.globalAlpha=Math.max(0.08,s.a);ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
+  ctx.globalAlpha=1;requestAnimationFrame(drawStars);
+}
+window.addEventListener('resize',resizeCanvas);resizeCanvas();drawStars();
+function shootStar(){const sw=document.getElementById('shootWrap');const el=document.createElement('div');el.className='star-trail';el.style.top=(Math.random()*65)+'%';el.style.left=(Math.random()*55)+'%';el.style.animationDuration=(0.7+Math.random()*0.7)+'s';sw.appendChild(el);setTimeout(()=>el.remove(),2000);}
+setInterval(shootStar,4500);setTimeout(shootStar,1500);setTimeout(shootStar,8000);
+
+// TIMER
+let startDate=null,timerIv=null;
+const pad=n=>String(n).padStart(2,'0');
+function updateTimer(){
+  if(!startDate)return;
+  const now=new Date(),diff=now-startDate;if(diff<0)return;
+  let y=now.getFullYear()-startDate.getFullYear();let m=now.getMonth()-startDate.getMonth();let d=now.getDate()-startDate.getDate();
+  if(d<0){m--;const prev=new Date(now.getFullYear(),now.getMonth(),0);d+=prev.getDate();}
+  if(m<0){y--;m+=12;}
+  const hrs=Math.floor((diff%86400000)/3600000);const min=Math.floor((diff%3600000)/60000);const sec=Math.floor(diff/1000)%60;
+  document.getElementById('tY').textContent=y;document.getElementById('tM').textContent=m;document.getElementById('tD').textContent=d;
+  document.getElementById('tH').textContent=pad(hrs);document.getElementById('tMin').textContent=pad(min);document.getElementById('tS').textContent=pad(sec);
+}
+document.getElementById('startDate').addEventListener('change',function(){startDate=new Date(this.value);if(timerIv)clearInterval(timerIv);updateTimer();timerIv=setInterval(updateTimer,1000);});
+
+// STEPS — романтично водене
+function togStep(id, stepNum){
+  const el=document.getElementById(id);
+  const wasOpen=el.classList.contains('open');
+  el.classList.toggle('open');
+  el.classList.remove('pulse-me');
+  if(!wasOpen && stepNum<5){
+    const nhEl=document.getElementById('nh'+stepNum);
+    if(nhEl){
+      setTimeout(()=>{
+        nhEl.classList.add('show');
+        const nextEl=document.getElementById('s'+(stepNum+1));
+        if(nextEl){
+          nextEl.classList.add('pulse-me');
+          setTimeout(()=>nextEl.classList.remove('pulse-me'),3500);
+          setTimeout(()=>nextEl.scrollIntoView({behavior:'smooth',block:'nearest'}),2500);
+        }
+      },1800);
+    }
+  } else if(wasOpen){
+    const nhEl=document.getElementById('nh'+stepNum);
+    if(nhEl) nhEl.classList.remove('show');
+  }
+}
+
+// REASONS
+let reasonCount=5;
+function addReason(){
+  const track=document.getElementById('reasonsTrack');const addCard=document.getElementById('addCard');reasonCount++;
+  const icons=['🌺','🦋','🌊','🎵','🌷','⭐','🍃','🌙','🎶','🕊'];
+  const card=document.createElement('div');card.className='reason-card';
+  card.innerHTML=`<span class="reason-num">причина ${String(reasonCount).padStart(2,'0')}</span><span class="reason-icon">${icons[Math.floor(Math.random()*icons.length)]}</span><div class="reason-text">Напиши своята причина тук...</div>`;
+  track.insertBefore(card,addCard);updateDots();
+}
+function updateDots(){
+  const track=document.getElementById('reasonsTrack');const cards=[...track.querySelectorAll('.reason-card:not(#addCard)')];
+  const dotsEl=document.getElementById('reasonsDots');dotsEl.innerHTML='';
+  cards.forEach((_,i)=>{const d=document.createElement('div');d.className='r-dot'+(i===0?' active':'');d.onclick=()=>cards[i].scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});dotsEl.appendChild(d);});
+}
+document.getElementById('reasonsTrack').addEventListener('scroll',function(){
+  const cards=[...this.querySelectorAll('.reason-card:not(#addCard)')];const dots=[...document.getElementById('reasonsDots').querySelectorAll('.r-dot')];
+  let idx=0;const tl=this.getBoundingClientRect().left;
+  cards.forEach((c,i)=>{if(c.getBoundingClientRect().left<=tl+100)idx=i;});
+  dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+});
+updateDots();
+
+// PUZZLE
+let puzzles=[
+  {clue:'Въпрос 1 — смени ме в редактора ✏',answer:'',hint:'Подсказка 1 — смени ме',reveal:'Романтичното послание след верен отговор 1 — смени ме ♡'},
+  {clue:'Въпрос 2 — смени ме в редактора ✏',answer:'',hint:'Подсказка 2 — смени ме',reveal:'Романтичното послание след верен отговор 2 — смени ме ♡'},
+  {clue:'Въпрос 3 — смени ме в редактора ✏',answer:'',hint:'Подсказка 3 — смени ме',reveal:'Романтичното послание след верен отговор 3 — смени ме ♡'}
+];
+let currentPuzzle=0,wrongCount=0;
+function renderPuzzle(){
+  const prog=document.getElementById('puzzleProg');prog.innerHTML='';
+  puzzles.forEach((_,i)=>{const d=document.createElement('div');d.className='p-dot'+(i<currentPuzzle?' done':'');prog.appendChild(d);});
+  document.getElementById('puzzleGuide').classList.remove('show');
+  if(currentPuzzle>=puzzles.length){
+    document.getElementById('puzzleCard').classList.add('solved');
+    document.getElementById('pLock').textContent='🔓';
+    document.getElementById('pClue').textContent='Намери всички тайни послания! Обичам те! ♡';
+    document.getElementById('pInputRow').style.display='none';
+    document.getElementById('pReveal').style.display='block';
+    document.getElementById('pReveal').textContent='Обичам те толкова, колкото звездите по небето — безброй и безкрайно. ♡';
+    setTimeout(()=>{
+      document.getElementById('puzzleGuideText').textContent='сега следвай стрелките долу ♡';
+      document.getElementById('puzzleGuide').classList.add('show');
+      const s1=document.getElementById('s1');s1.classList.add('pulse-me');
+      setTimeout(()=>s1.scrollIntoView({behavior:'smooth',block:'nearest'}),1200);
+    },1000);
+    return;
+  }
+  const p=puzzles[currentPuzzle];
+  document.getElementById('pLock').textContent=currentPuzzle===0?'🔒':'🔑';
+  document.getElementById('pClue').textContent=p.clue;
+  document.getElementById('pInput').value='';document.getElementById('pInput').className='p-input';
+  document.getElementById('pHint').style.display='none';document.getElementById('pHint').textContent='';
+  document.getElementById('pReveal').style.display='none';document.getElementById('pInputRow').style.display='flex';
+  document.getElementById('puzzleCard').classList.remove('solved');
+}
+renderPuzzle();
+function checkAnswer(){
+  const p=puzzles[currentPuzzle];const inp=document.getElementById('pInput');
+  const val=inp.value.trim().toLowerCase();const ans=p.answer.trim().toLowerCase();
+  if(!ans||val===ans){showReveal();}
+  else{wrongCount++;inp.classList.add('wrong');setTimeout(()=>inp.classList.remove('wrong'),500);if(wrongCount>=2){document.getElementById('pHint').textContent=p.hint;document.getElementById('pHint').style.display='block';}}
+}
+function showReveal(){
+  wrongCount=0;const p=puzzles[currentPuzzle];
+  const rev=document.getElementById('pReveal');rev.textContent=p.reveal;rev.style.display='block';
+  document.getElementById('pLock').textContent='💖';document.getElementById('puzzleCard').classList.add('solved');
+  const dots=[...document.getElementById('puzzleProg').querySelectorAll('.p-dot')];if(dots[currentPuzzle])dots[currentPuzzle].classList.add('done');
+  spawnPetals(20);
+  const msg=p.reveal.length>55?p.reveal.substring(0,55)+'...':p.reveal;showFlash('🌸',msg);
+  const nextIdx=currentPuzzle+1;
+  if(nextIdx<puzzles.length){setTimeout(()=>{document.getElementById('puzzleGuideText').textContent=`въпрос ${nextIdx+1} от ${puzzles.length} — продължавай ♡`;document.getElementById('puzzleGuide').classList.add('show');},900);}
+  setTimeout(()=>{currentPuzzle++;renderPuzzle();},3200);
+}
+
+// PUZZLE EDIT
+function openPuzzleEdit(){
+  const el=document.getElementById('puzzleEditFields');el.innerHTML='';
+  puzzles.forEach((p,i)=>{
+    const div=document.createElement('div');div.className='puzzle-edit-item';
+    div.innerHTML=`<div class="pei-num">въпрос ${i+1}</div><div class="pei-label">Въпросът:</div><textarea class="pei-textarea" id="pe_clue_${i}">${p.clue}</textarea><div class="pei-label">Верен отговор <span style="color:#5a3870">(остави празно = всичко)</span>:</div><input class="pei-input" id="pe_ans_${i}" value="${p.answer}"><div class="pei-label">Подсказка след 2 грешки:</div><input class="pei-input" id="pe_hint_${i}" value="${p.hint}"><div class="pei-label">Послание след верен отговор:</div><textarea class="pei-textarea" id="pe_rev_${i}">${p.reveal}</textarea>`;
+    el.appendChild(div);
+  });
+  document.getElementById('puzzleEditOv').classList.add('on');
+}
+function closePuzzleEdit(){document.getElementById('puzzleEditOv').classList.remove('on');}
+function savePuzzleEdit(){
+  puzzles.forEach((_,i)=>{puzzles[i].clue=document.getElementById('pe_clue_'+i).value;puzzles[i].answer=document.getElementById('pe_ans_'+i).value;puzzles[i].hint=document.getElementById('pe_hint_'+i).value;puzzles[i].reveal=document.getElementById('pe_rev_'+i).value;});
+  currentPuzzle=0;wrongCount=0;renderPuzzle();closePuzzleEdit();
+}
+document.getElementById('puzzleEditOv').addEventListener('click',e=>{if(e.target===document.getElementById('puzzleEditOv'))closePuzzleEdit();});
+
+// FLASH MESSAGE
+function showFlash(icon,text){
+  const fm=document.getElementById('flashMsg');
+  document.getElementById('flashIcon').textContent=icon;document.getElementById('flashText').textContent=text;
+  fm.classList.add('show');setTimeout(()=>fm.classList.remove('show'),3200);
+}
+
+// PETALS
+const petalEmojis=['🌸','🌺','🌷','🌼','🪷','✿'];
+function spawnPetals(count){
+  const w=document.getElementById('petalsWrap');
+  for(let i=0;i<count;i++){setTimeout(()=>{const p=document.createElement('span');p.className='petal';p.textContent=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];p.style.left=(Math.random()*100)+'%';p.style.fontSize=(0.9+Math.random()*1.6)+'rem';p.style.animationDuration=(3+Math.random()*3)+'s';p.style.animationDelay=(Math.random()*0.4)+'s';w.appendChild(p);setTimeout(()=>p.remove(),7000);},i*80);}
+}
+
+// HEARTS
+const hemojis=['♡','♥','💕','💗','💖','💝','🌸','✨','🌷','💫','🦋','⭐'];
+function burstHearts(){
+  const w=document.getElementById('fhWrap');
+  for(let i=0;i<55;i++){setTimeout(()=>{const h=document.createElement('span');h.className='fh';h.textContent=hemojis[Math.floor(Math.random()*hemojis.length)];h.style.left=(2+Math.random()*96)+'%';h.style.fontSize=(0.9+Math.random()*2.2)+'rem';h.style.animationDuration=(2.2+Math.random()*2.8)+'s';w.appendChild(h);setTimeout(()=>h.remove(),5500);},i*48);}
+}
+
+// CONFETTI
+const confCols=['#f9c6d0','#b57bee','#e8a0c8','#f5d0d8','#c8b0ff','#ffd6e0','#ffe4f0'];
+function popConfetti(){
+  const w=document.getElementById('confWrap');
+  for(let i=0;i<90;i++){setTimeout(()=>{const c=document.createElement('div');c.className='cpiece';c.style.left=(Math.random()*100)+'%';c.style.top='-10px';c.style.background=confCols[Math.floor(Math.random()*confCols.length)];const sz=5+Math.random()*8;c.style.width=sz+'px';c.style.height=sz+'px';c.style.borderRadius=Math.random()>0.5?'50%':'2px';c.style.animationDuration=(2.5+Math.random()*2.5)+'s';c.style.animationDelay=(Math.random()*0.8)+'s';w.appendChild(c);setTimeout(()=>c.remove(),6000);},i*18);}
+}
+
+// BIG SURPRISE
+function bigSurprise(){
+  burstHearts();popConfetti();spawnPetals(30);
+  setTimeout(()=>showFlash('💖','Обичам те безкрайно много! ♡'),500);
+  setTimeout(()=>{
+    const nh=document.getElementById('nh4');if(nh)nh.classList.add('show');
+    const s5=document.getElementById('s5');
+    if(s5){s5.classList.add('pulse-me');setTimeout(()=>s5.scrollIntoView({behavior:'smooth',block:'nearest'}),1200);}
+  },1800);
+}
+</script>
+</body>
+</html>
