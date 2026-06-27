@@ -186,7 +186,7 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
   <div class="hero">
     <div class="hero-subtitle">✦ само за теб ✦</div>
     <div class="hero-title">За теб,<br><em>моя любов</em> ♡</div>
-    <div class="hero-desc">Отвори бавно — всяко сърце крие нещо специално.<br>Следвай пътеките и ще намериш всичко.</div>
+    <div class="hero-desc">Направих това специално за теб.<br>Искам всяка част от него да ти напомни колко много означаваш за мен. ❤️</div>
   </div>
 
   <div class="timer-wrap">
@@ -217,10 +217,10 @@ html,body{min-height:100vh;background:#080514;font-family:'Lato',sans-serif;colo
   </div>
   <div style="width:100%;">
     <div class="reasons-track" id="reasonsTrack">
-      <div class="reason-card"><span class="reason-num">причина 01</span><span class="reason-icon">🌙</span><div class="reason-text">Обичам как светят очите ти, когато се смееш истински.</div></div>
-      <div class="reason-card"><span class="reason-num">причина 02</span><span class="reason-icon">🌿</span><div class="reason-text">Обичам как ме разбираш без да казвам нито дума.</div></div>
-      <div class="reason-card"><span class="reason-num">причина 03</span><span class="reason-icon">✨</span><div class="reason-text">Обичам как правиш обикновените моменти — магически.</div></div>
-      <div class="reason-card"><span class="reason-num">причина 04</span><span class="reason-icon">🌸</span><div class="reason-text">Обичам всичките ти малки навици, дори тези, дето ме карат да се смея.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 01</span><span class="reason-icon">🌙</span><div class="reason-text">Обичам начина, по който ме гледаш и без да кажеш нищо.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 02</span><span class="reason-icon">🌿</span><div class="reason-text">Обичам колко спокойствие ми носиш.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 03</span><span class="reason-icon">✨</span><div class="reason-text">Обичам всяка минута, която прекарвам с теб.</div></div>
+      <div class="reason-card"><span class="reason-num">причина 04</span><span class="reason-icon">🌸</span><div class="reason-text">Обичам дори малките ти странности, защото те правят теб.</div></div>
       <div class="reason-card"><span class="reason-num">причина 05</span><span class="reason-icon">💫</span><div class="reason-text">Обичам как се чувствам у дома, когато съм до теб.</div></div>
       <div class="reason-card" id="addCard" style="justify-content:center;align-items:center;border-style:dashed;cursor:default;">
         <button class="add-reason-btn" onclick="addReason()">+ добави причина</button>
@@ -529,13 +529,25 @@ document.getElementById('reasonsTrack').addEventListener('scroll',function(){
 });
 updateDots();
 
-// PUZZLE
-let puzzles=[
-  {clue:'Въпрос 1 — смени ме в редактора ✏',answer:'',hint:'Подсказка 1 — смени ме',reveal:'Романтичното послание след верен отговор 1 — смени ме ♡'},
-  {clue:'Въпрос 2 — смени ме в редактора ✏',answer:'',hint:'Подсказка 2 — смени ме',reveal:'Романтичното послание след верен отговор 2 — смени ме ♡'},
-  {clue:'Въпрос 3 — смени ме в редактора ✏',answer:'',hint:'Подсказка 3 — смени ме',reveal:'Романтичното послание след верен отговор 3 — смени ме ♡'}
-];
-let currentPuzzle=0,wrongCount=0;
+{
+  clue:'1. Кога започна нашата история? ❤️',
+  answer:'21.03.2023', // напр. 14.02.2024
+  hint:'Това е денят, в който станахме заедно. (дд.мм.гггг)',
+  reveal:'Точно така! ❤️ Това беше денят, в който започна най-хубавата част от живота ми.'
+},
+{
+  clue:'2. Каква ще стане фамилията ти, когато ми я приемеш? 💍',
+  answer:'Алиева', // твоята фамилия с малки букви
+  hint:'Подсказка: същата като моята. ❤️',
+  reveal:'Нямам търпение един ден този отговор да стане реалност. ❤️'
+},
+{
+  clue:'3. Какъв ми е любимият цвят? 🎨',
+  answer:'Червен', // напр. черен
+  hint:'Подсказка: това е цветът, който нося най-често.',
+  reveal:'Позна! ❤️ Винаги обръщаш внимание дори на малките неща за мен.'
+}
+  
 function renderPuzzle(){
   const prog=document.getElementById('puzzleProg');prog.innerHTML='';
   puzzles.forEach((_,i)=>{const d=document.createElement('div');d.className='p-dot'+(i<currentPuzzle?' done':'');prog.appendChild(d);});
